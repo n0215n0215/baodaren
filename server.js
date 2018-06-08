@@ -7,7 +7,8 @@ const lineConfig = {
 };
 const client = new line.Client(lineConfig);
 const app = express();
-const url = 'https://minkch.com/search/%E5%B7%A8/page/'
+//const url = 'https://minkch.com/search/%E5%B7%A8/page/'
+const url = 'https://minkch.com/archives/category/%E3%82%A8%E3%83%AD%E5%86%99%E3%83%A1%E3%83%BB%E8%87%AA%E6%92%AE%E3%82%8A/page/'
 const cheerio = require('cheerio');
 
 
@@ -47,7 +48,7 @@ function handleEvent(event) {
                     switch (event.message.text) {
                         case "抽":
                             //replyMessage("還沒好啦！不要一直抽抽抽。", replyType.text, event);
-                            var Randurl = url + getRandomIntInclusive(1, 79);
+                            var Randurl = url + getRandomIntInclusive(1, 220);
                             request(Randurl, (err, res, body) => {
                                 const $ = cheerio.load(body);
                                 let posts = [];
