@@ -73,6 +73,10 @@ function handleEvent(event) {
                             replyMessage("漱漱漱", replyType.text, event);
                             //pushMessage("https://img.technews.tw/wp-content/uploads/2015/09/Google-logo_1.jpg", replyType.image, event);
                             break;
+                        case "幹":
+                            replyMessage("幹什麼幹阿...？", replyType.text, event);
+                            //pushMessage("https://img.technews.tw/wp-content/uploads/2015/09/Google-logo_1.jpg", replyType.image, event);
+                            break;
                         default:
                             //replyMessage(event.message.text, replyType.text, event);
                             break;
