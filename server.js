@@ -80,8 +80,11 @@ function handleEvent(event) {
                         case "靠":
                             replyMessage("北邊走一點", replyType.text, event);
                             break;
+                        case "**":
+                            pushMessage("https://drive.google.com/file/d/1_NZ6MC1KbO2vPcIVg_Lw55gTKTwF2WlD/view?usp=sharing", replyType.video, event);
+                            break;
                         case "星星點燈":
-                            pushMessage("https://drive.google.com/file/d/1skhoxrvbh5SykcQrsE5LkjJgV2cdQ7JG/view?usp=sharing", replyType.video, event);
+                            pushMessage("https://www.youtube.com/watch?v=nSFEUPJM8LI", replyType.video, event);
                             break;
                         default:
                             //replyMessage(event.message.text, replyType.text, event);
