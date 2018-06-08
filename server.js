@@ -74,7 +74,8 @@ function handleEvent(event) {
                             //pushMessage("https://img.technews.tw/wp-content/uploads/2015/09/Google-logo_1.jpg", replyType.image, event);
                             break;
                         case "幹":
-                            replyMessage("幹什麼幹阿...？", replyType.text, event);
+                            //replyMessage("幹什麼幹阿...？", replyType.text, event);
+                            replySticker('7', replyType.sticker, event);
                             break;
                         case "靠":
                             replyMessage("北邊走一點", replyType.text, event);
@@ -91,6 +92,14 @@ function replyMessage(msg, type, event) {
     return client.replyMessage(event.replyToken, {
         type: type,
         text: msg
+    });
+}
+
+function replySticker(msg, type, event) {
+    return client.replyMessage(event.replyToken, {
+        type : type,
+        packageId:'1',
+        stickerId: msg
     });
 }
 
@@ -153,5 +162,6 @@ function getRandomIntInclusive(min, max) {
 var replyType = {
     text: 'text',
     image: 'image',
-    video: 'video'
+    video: 'video',
+    sticker:'sticker'
 };
