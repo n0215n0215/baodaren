@@ -81,7 +81,7 @@ function handleEvent(event) {
                             replyMessage("北邊走一點", replyType.text, event);
                             break;
                         case "星星點燈":
-                            pushMessage("https://www.youtube.com/watch?v=nSFEUPJM8LI", replyType.video, event);
+                            pushMessage("https://drive.google.com/file/d/1skhoxrvbh5SykcQrsE5LkjJgV2cdQ7JG/view?usp=sharing", replyType.video, event);
                             break;
                         default:
                             //replyMessage(event.message.text, replyType.text, event);
