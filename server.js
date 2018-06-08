@@ -48,7 +48,7 @@ function handleEvent(event) {
                     switch (event.message.text) {
                         case "抽":
                             //replyMessage("還沒好啦！不要一直抽抽抽。", replyType.text, event);
-                            var Randurl = url + getRandomIntInclusive(1, 220);
+                            var Randurl = url + getRandomIntInclusive(1, 277);
                             request(Randurl, (err, res, body) => {
                                 const $ = cheerio.load(body);
                                 let posts = [];
