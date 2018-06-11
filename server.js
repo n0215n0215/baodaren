@@ -33,11 +33,13 @@ app.get('/web', function (req, res) {
 function handleEvent(event) {
     switch (event.type) {
         case 'join':
+            break
         case 'follow':
             //return client.replyMessage(event.replyToken, {
             //    type: 'text',
             //    text: '你好請問我們認識嗎?'
             //});
+            break
         case 'message':
             switch (event.message.type) {
                 case 'text':
@@ -92,17 +94,60 @@ function handleEvent(event) {
                             break;
                     }
             }
+            break;
         case "postback":
-            console.log(event.postback.data);
-            Randurl = event.postback.data;
-            request(Randurl, (err, res, body) => {
-                const $ = cheerio.load(body);
-                $('.pict').each(function (i, elem) {
-                    pushMessage($(this).attr("src"), replyType.image, event);
+            var PostUser = "";
+            //console.log(event.source.type);
+            var UserInfo;
+            if (event.source.type == "group") {
+                UserInfo = client.getGroupMemberProfile(event.source.groupId, event.source.userId)
+                UserInfo.then(function (value) {
+                    //console.log(value.displayName);
+                    PostUser = value.displayName;
+                    replyMessage(PostUser + " 你的圖來了！", replyType.text, event);
+                    Randurl = event.postback.data;
+                    request(Randurl, (err, res, body) => {
+                        const $ = cheerio.load(body);
+                        $('.pict').each(function (i, elem) {
+                            pushMessage($(this).attr("src"), replyType.image, event);
+                            })
+                        })
+                    }
+                )
+            }
+            else if (event.source.type == "room") {
+                UserInfo = client.getRoomMemberProfile(event.source.roomId, event.source.userId)
+                UserInfo.then(function (value) {
+                    //console.log(value.displayName);
+                    PostUser = value.displayName;
+                    replyMessage(PostUser + " 你的圖來了！", replyType.text, event);
+                    Randurl = event.postback.data;
+                    request(Randurl, (err, res, body) => {
+                        const $ = cheerio.load(body);
+                        $('.pict').each(function (i, elem) {
+                            pushMessage($(this).attr("src"), replyType.image, event);
+                        })
+                    })
+                    }
+                )
+            }
+            else
+            {
+                replyMessage(" 你的圖來了！", replyType.text, event);
+                Randurl = event.postback.data;
+                request(Randurl, (err, res, body) => {
+                    const $ = cheerio.load(body);
+                    $('.pict').each(function (i, elem) {
+                        pushMessage($(this).attr("src"), replyType.image, event);
+                    })
                 })
-            })
-        break
-    }
+
+            }
+//console.log(UserInfo);
+
+
+break
+}
 }
 
 function replyMessage(msg, type, event) {
@@ -175,7 +220,7 @@ function pushMessage(msg, type, event) {
     //        break;
     //}
     if (msg.indexOf("https:") < 0) msg = "https:" + msg;
-    console.log(msg);
+    //console.log(msg);
     switch (source.type) {
         case "user":
             return client.pushMessage(source.userId, {
