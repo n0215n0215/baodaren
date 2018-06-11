@@ -25,13 +25,9 @@ app.post('/', line.middleware(lineConfig), function (req, res) {
 });
 
 app.get('/web', function (req, res) {
-    //let arg = req.query.msg;
-    arg = "ABC";
-    //weeklyFacebookPost(arg);
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write('<html><head><title>Facebook Messenger Bot</title></head><body><h1>Running</body></html>');
-//res.write(messengerButton);
-res.end();
+    res.write('<html><head><title>Line Messenger Bot</title></head><body><h1>Running</body></html>');
+    res.end();
 });
 
 function handleEvent(event) {
@@ -45,8 +41,8 @@ function handleEvent(event) {
         case 'message':
             switch (event.message.type) {
                 case 'text':
-                    switch (event.message.text) {
-                        case "抽":
+                    switch (true) {                        
+                        case (event.message.text.indexOf("抽") >= 0):
                             //replyMessage("還沒好啦！不要一直抽抽抽。", replyType.text, event);
                             var Randurl = url + getRandomIntInclusive(1, 277);
                             request(Randurl, (err, res, body) => {
@@ -69,28 +65,43 @@ function handleEvent(event) {
                                 })
                             })
                             break;
-                        case "恕我攔轎":
+                        case (event.message.text.indexOf("恕我攔轎") >= 0):
                             replyMessage("漱漱漱", replyType.text, event);
                             //pushMessage("https://img.technews.tw/wp-content/uploads/2015/09/Google-logo_1.jpg", replyType.image, event);
                             break;
-                        case "幹":
+                        case (event.message.text.indexOf("幹") >= 0):
                             //replyMessage("幹什麼幹阿...？", replyType.text, event);
                             replySticker('7', replyType.sticker, event);
                             break;
-                        case "靠":
+                        case (event.message.text.indexOf("靠") >= 0):
                             replyMessage("北邊走一點", replyType.text, event);
                             break;
-                        case "**":
+                        case (event.message.text.indexOf("**") >= 0):
                             pushMessage("https://drive.google.com/file/d/1_NZ6MC1KbO2vPcIVg_Lw55gTKTwF2WlD/view?usp=sharing", replyType.video, event);
                             break;
-                        case "星星點燈":
+                        case (event.message.text.indexOf("星星點燈") >= 0):
                             pushMessage("https://www.youtube.com/watch?v=nSFEUPJM8LI", replyType.video, event);
                             break;
                         default:
-                            //replyMessage(event.message.text, replyType.text, event);
+                            switch (true) {
+                                case (event.message.text.indexOf("包大人") >= 0):
+                                    replyCarouselTemplateFormMinkch10(event)
+                                    break;
+                            }
+                            
                             break;
                     }
             }
+        case "postback":
+            //console.log(event.postback.data);
+            Randurl = event.postback.data;
+            request(Randurl, (err, res, body) => {
+                const $ = cheerio.load(body);
+                $('.pict').each(function (i, elem) {
+                    pushMessage("https:" + $(this).attr("src"), replyType.image, event);
+                })
+            })
+        break
     }
 }
 
@@ -104,9 +115,39 @@ function replyMessage(msg, type, event) {
 function replySticker(msg, type, event) {
     return client.replyMessage(event.replyToken, {
         type : type,
-        packageId:'1',
+        packageId: '1',
         stickerId: msg
     });
+}
+
+function replyCarouselTemplateFormMinkch10(event) {
+    var columns = [];
+    var Randurl = url + getRandomIntInclusive(1, 277);
+    request(Randurl, (err, res, body) => {
+        const $ = cheerio.load(body);
+        $('article').each(function (i, elem) {
+            columns.push({
+                thumbnailImageUrl: "https:" + $(this).find('.pict').attr("src"),
+                title: $(this).find(".entry-title-text").text(),
+                text: $(this).find("strong").text(),
+                actions: [{
+                        type: 'postback',
+                        label: '看全部',
+                        data: $(this).find('.entry-title a').attr("href")
+                    }]
+            });
+        })
+        return client.replyMessage(event.replyToken, {
+            type: 'template',
+            altText: '有人攔轎啦！',
+            template: {
+                type: 'carousel',
+                columns: columns
+            }
+        });
+    });
+
+
 }
 
 function pushMessage(msg, type, event) {
@@ -135,11 +176,11 @@ function pushMessage(msg, type, event) {
     //}
     switch (source.type) {
         case "user":
-                    return client.pushMessage(source.userId, {
-                        type: type,
-                        previewImageUrl: msg,
-                        originalContentUrl : msg
-                    });
+            return client.pushMessage(source.userId, {
+                type: type,
+                previewImageUrl: msg,
+                originalContentUrl : msg
+            });
             break
         case "room":
             return client.pushMessage(source.roomId, {
@@ -147,7 +188,7 @@ function pushMessage(msg, type, event) {
                 previewImageUrl: msg,
                 originalContentUrl : msg
             });
-
+            
             break
         case "group":
             return client.pushMessage(source.groupId, {
@@ -169,5 +210,5 @@ var replyType = {
     text: 'text',
     image: 'image',
     video: 'video',
-    sticker:'sticker'
+    sticker: 'sticker'
 };
