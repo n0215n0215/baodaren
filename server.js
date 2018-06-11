@@ -93,12 +93,12 @@ function handleEvent(event) {
                     }
             }
         case "postback":
-            //console.log(event.postback.data);
+            console.log(event.postback.data);
             Randurl = event.postback.data;
             request(Randurl, (err, res, body) => {
                 const $ = cheerio.load(body);
                 $('.pict').each(function (i, elem) {
-                    pushMessage("https:" + $(this).attr("src"), replyType.image, event);
+                    pushMessage($(this).attr("src"), replyType.image, event);
                 })
             })
         break
@@ -174,6 +174,8 @@ function pushMessage(msg, type, event) {
     //        });
     //        break;
     //}
+    if (msg.indexOf("https:") < 0) msg = "https:" + msg;
+    console.log(msg);
     switch (source.type) {
         case "user":
             return client.pushMessage(source.userId, {
