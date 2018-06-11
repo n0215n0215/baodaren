@@ -65,10 +65,10 @@ function handleEvent(event) {
                                 })
                             })
                             break;
-                        case (event.message.text.indexOf("恕我攔轎") >= 0):
-                            replyMessage("漱漱漱", replyType.text, event);
-                            //pushMessage("https://img.technews.tw/wp-content/uploads/2015/09/Google-logo_1.jpg", replyType.image, event);
-                            break;
+                        //case (event.message.text.indexOf("恕我攔轎") >= 0):
+                        //    replyMessage("漱漱漱", replyType.text, event);
+                        //    //pushMessage("https://img.technews.tw/wp-content/uploads/2015/09/Google-logo_1.jpg", replyType.image, event);
+                        //    break;
                         case (event.message.text.indexOf("幹") >= 0):
                             //replyMessage("幹什麼幹阿...？", replyType.text, event);
                             replySticker('7', replyType.sticker, event);
