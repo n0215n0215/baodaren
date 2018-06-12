@@ -79,7 +79,7 @@ function handleEvent(event) {
                             replyMessage("北邊走一點", replyType.text, event);
                             break;
                         case (event.message.text.indexOf("**") >= 0):
-                            pushMessage("https://drive.google.com/file/d/1_NZ6MC1KbO2vPcIVg_Lw55gTKTwF2WlD/view?usp=sharing", replyType.video, event);
+                            pushMessage("https://api.tiktokv.com/aweme/v1/playwm/?video_id=v07025ea0000bcfluhbdctmo76qscb90&line=0", replyType.video, event);
                             break;
                         case (event.message.text.indexOf("星星點燈") >= 0):
                             pushMessage("https://www.youtube.com/watch?v=nSFEUPJM8LI", replyType.video, event);
