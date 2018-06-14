@@ -84,6 +84,9 @@ function handleEvent(event) {
                         case (event.message.text.indexOf("星星點燈") >= 0):
                             pushMessage("https://www.youtube.com/watch?v=nSFEUPJM8LI", replyType.video, event);
                             break;
+                        case (event.message.text.indexOf("位置") >= 0):
+                            pushMessage("哩低對?", replyType.uri, event);
+                            break;
                         default:
                             switch (true) {
                                 case (event.message.text.indexOf("包大人") >= 0):
@@ -143,17 +146,23 @@ function handleEvent(event) {
                 })
 
             }
-//console.log(UserInfo);
-
-
-break
-}
+            //console.log(UserInfo);
+            break
+        }
 }
 
 function replyMessage(msg, type, event) {
     return client.replyMessage(event.replyToken, {
         type: type,
         text: msg
+    });
+}
+
+function replyUriTemplateMessage(msg, type, event) {
+    return client.replyMessage(event.replyToken, {
+        type: type,
+        label : msg,
+        uri :'line://nv/location'
     });
 }
 
@@ -257,5 +266,6 @@ var replyType = {
     text: 'text',
     image: 'image',
     video: 'video',
-    sticker: 'sticker'
+    sticker: 'sticker',
+    uri: 'uri'
 };
