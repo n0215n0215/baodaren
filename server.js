@@ -84,8 +84,8 @@ function handleEvent(event) {
                         case (event.message.text.indexOf("星星點燈") >= 0):
                             pushMessage("https://www.youtube.com/watch?v=nSFEUPJM8LI", replyType.video, event);
                             break;
-                        case (event.message.text.indexOf("位置") >= 0):
-                            pushMessage("哩低對?", replyType.uri, event);
+                        case (event.message.text.indexOf("位置") >= 0 || event.message.text.indexOf("哪") >= 0 || event.message.text.indexOf("那裡") >= 0):
+                            replyUri("哩低對?", replyType.uri, event);
                             break;
                         default:
                             switch (true) {
@@ -158,19 +158,45 @@ function replyMessage(msg, type, event) {
     });
 }
 
-function replyUriTemplateMessage(msg, type, event) {
-    return client.replyMessage(event.replyToken, {
-        type: type,
-        label : msg,
-        uri :'line://nv/location'
-    });
-}
-
 function replySticker(msg, type, event) {
     return client.replyMessage(event.replyToken, {
         type : type,
         packageId: '1',
         stickerId: msg
+    });
+}
+
+function replyUri(msg, type, event) {
+    return client.replyMessage(event.replyToken, {
+        type: 'template',
+        altText: '哩低對？',
+        template: {
+            type: 'buttons',
+            text: '哩低對？',
+            actions: [{
+                    type: 'uri',
+                    label: '傳送我的位置',
+                    uri: 'line://nv/location'
+                }]
+        }
+    });
+}
+
+function replyImagemap(msg, type, event) {
+    return client.replyMessage(event.replyToken, {
+        type: 'imagemap',
+        baseUrl: 'https://www.fzhd8.com/mobile/image/our-goods04.png',
+        altText: 'this is an imagemap',
+        baseSize: { height: 1040, width: 1040 },
+        actions: [{
+                type: 'uri',
+                linkUri: 'https://example.com/',
+                area: { x: 0, y: 0, width: 520, height: 1040 }
+            }, {
+                type: 'message',
+                text: 'hello',
+                area: { x: 520, y: 0, width: 520, height: 1040 }
+            }]
     });
 }
 
