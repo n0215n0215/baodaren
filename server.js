@@ -84,8 +84,8 @@ function handleEvent(event) {
                         case (event.message.text.indexOf("星星點燈") >= 0):
                             pushMessage("https://www.youtube.com/watch?v=nSFEUPJM8LI", replyType.video, event);
                             break;
-                        case (event.message.text.indexOf("位置") >= 0 || event.message.text.indexOf("哪") >= 0 || event.message.text.indexOf("那裡") >= 0):
-                            replyUri("哩低對?", replyType.uri, event);
+                        case (event.message.text.indexOf("雷達") >= 0 || event.message.text.indexOf("迴波圖") >= 0 || event.message.text.indexOf("天氣") >= 0):
+                            replyUri("雷達迴波圖", replyType.uri, event);
                             break;
                         default:
                             switch (true) {
@@ -169,14 +169,14 @@ function replySticker(msg, type, event) {
 function replyUri(msg, type, event) {
     return client.replyMessage(event.replyToken, {
         type: 'template',
-        altText: '哩低對？',
+        altText: '雷達迴波圖來了！',
         template: {
             type: 'buttons',
-            text: '哩低對？',
+            text: '雷達迴波圖來了！',
             actions: [{
                     type: 'uri',
-                    label: '傳送我的位置',
-                    uri: 'line://nv/location'
+                    label: '【看雷達迴波圖】',
+                    uri: 'line://app/1562295023-xP4BLrKg'
                 }]
         }
     });
