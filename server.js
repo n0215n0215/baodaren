@@ -10,6 +10,7 @@ const app = express();
 //const url = 'https://minkch.com/search/%E5%B7%A8/page/'
 const url = 'https://minkch.com/archives/category/%E3%82%A8%E3%83%AD%E5%86%99%E3%83%A1%E3%83%BB%E8%87%AA%E6%92%AE%E3%82%8A/page/'
 const cheerio = require('cheerio');
+var imgur = require('imgur');
 
 
 app.listen(process.env.PORT || 3000, function () {
@@ -92,6 +93,24 @@ function handleEvent(event) {
                                 case (event.message.text.indexOf("包大人") >= 0):
                                     replyCarouselTemplateFormMinkch10(event)
                                     break;
+                                default:
+                                    console.log(event);
+                                    var rval = getRandomIntInclusive(1, 5)
+                                    if (rval == 1) {
+                                        //replyMessage("default", replyType.text, event);
+                                        var url1 = "http://img.anyanother.com/tag/%E5%91%A8%E6%98%9F%E9%A6%B3/page/1/maxpage/999/minpage/"
+                                        var Randurl = url1 + getRandomIntInclusive(1, 42) + "/";
+                                        request(Randurl, (err, res, body) => {
+                                            const $ = cheerio.load(body);
+                                            let img1 = [];
+                                            $('img').each(function (i, elem) {
+                                                img1.push($(this).attr("src"))
+                                            })
+                                            var rplink1 = img1[getRandomIntInclusive(0, img1.length - 1)]
+                                            uploadImgur(rplink1,event);
+                                        });
+                                    }                                    
+                                break
                             }
                             
                             break;
@@ -149,6 +168,19 @@ function handleEvent(event) {
             //console.log(UserInfo);
             break
         }
+}
+
+function uploadImgur(url, event) {
+    url = url.replace("thumb", "data");
+    //console.log(url);
+    imgur.uploadUrl(url)
+    .then(function (json) {
+        //console.log(json.data.link);
+        pushMessage(json.data.link, replyType.image, event);
+    })
+    .catch(function (err) {
+        console.error(err.message);
+    });   
 }
 
 function replyMessage(msg, type, event) {
