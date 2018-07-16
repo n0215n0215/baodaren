@@ -94,22 +94,22 @@ function handleEvent(event) {
                                     replyCarouselTemplateFormMinkch10(event)
                                     break;
                                 default:
-                                    console.log(event);
-                                    var rval = getRandomIntInclusive(1, 5)
-                                    if (rval == 1) {
-                                        //replyMessage("default", replyType.text, event);
-                                        var url1 = "http://img.anyanother.com/tag/%E5%91%A8%E6%98%9F%E9%A6%B3/page/1/maxpage/999/minpage/"
-                                        var Randurl = url1 + getRandomIntInclusive(1, 42) + "/";
-                                        request(Randurl, (err, res, body) => {
-                                            const $ = cheerio.load(body);
-                                            let img1 = [];
-                                            $('img').each(function (i, elem) {
-                                                img1.push($(this).attr("src"))
-                                            })
-                                            var rplink1 = img1[getRandomIntInclusive(0, img1.length - 1)]
-                                            uploadImgur(rplink1,event);
-                                        });
-                                    }                                    
+                                    ////console.log(event);
+                                    //var rval = getRandomIntInclusive(1, 5)
+                                    //if (rval == 1) {
+                                    //    //replyMessage("default", replyType.text, event);
+                                    //    var url1 = "http://img.anyanother.com/tag/%E5%91%A8%E6%98%9F%E9%A6%B3/page/1/maxpage/999/minpage/"
+                                    //    var Randurl = url1 + getRandomIntInclusive(1, 42) + "/";
+                                    //    request(Randurl, (err, res, body) => {
+                                    //        const $ = cheerio.load(body);
+                                    //        let img1 = [];
+                                    //        $('img').each(function (i, elem) {
+                                    //            img1.push($(this).attr("src"))
+                                    //        })
+                                    //        var rplink1 = img1[getRandomIntInclusive(0, img1.length - 1)]
+                                    //        uploadImgur(rplink1,event);
+                                    //    });
+                                    //}                                    
                                 break
                             }
                             
