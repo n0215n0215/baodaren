@@ -27,7 +27,7 @@ app.post('/', line.middleware(lineConfig), function (req, res) {
 
 app.get('/web', function (req, res) {
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.write('<html><head><title>Line Messenger Bot</title></head><body><h1>Running 2022/4/29</body></html>');
+    res.write('<html><head><title>Line Messenger Bot</title></head><body><h1>Running-2022/4/29</body></html>');
     res.end();
 });
 
