@@ -8,7 +8,7 @@ const lineConfig = {
 const client = new line.Client(lineConfig);
 const app = express();
 //const url = 'https://minkch.com/search/%E5%B7%A8/page/'
-const url = 'https://minkch.com/archives/category/%E3%82%A8%E3%83%AD%E5%86%99%E3%83%A1%E3%83%BB%E8%87%AA%E6%92%AE%E3%82%8A/page/'
+const url = 'https://minkch.com/archives/category/%E3%82%A8%E3%83%AD%E8%87%AA%E6%92%AE%E3%82%8A/page/'
 const cheerio = require('cheerio');
 var imgur = require('imgur');
 
