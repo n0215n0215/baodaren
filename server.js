@@ -531,7 +531,7 @@ function pushflexETH(event) {
         var tmpprice = JSON.parse(body)
         console.log(tmpprice)
         //onecoinprice = tmpprice.price;
-		onecoinprice = tmpprice.data.close;
+		onecoinprice = tmpprice.data[0].close;
         ethprice = coinamount * onecoinprice * 30;
         onecoinpricetoFixed2 = onecoinprice * 1;
         onecoinpricetoFixed2 = onecoinpricetoFixed2.toFixed(2)
