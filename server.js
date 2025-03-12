@@ -522,7 +522,7 @@ function pushflex(event) {
 function pushflexETH(event) {
     var source = event.source;
     //const biuri = "https://api3.binance.com/api/v3/ticker/price?symbol=ETHUSDT"
-	const biuri = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+	const biuri = "https://tsanghi.com/api/fin/crypto/realtime?token=demo&ticker=ETH/USD"
     const coinamount = 1;
     var ethprice = "";
     var onecoinprice;
@@ -531,7 +531,7 @@ function pushflexETH(event) {
         var tmpprice = JSON.parse(body)
         console.log(tmpprice)
         //onecoinprice = tmpprice.price;
-		onecoinprice = tmpprice.ethereum.usd;
+		onecoinprice = tmpprice.data.close;
         ethprice = coinamount * onecoinprice * 30;
         onecoinpricetoFixed2 = onecoinprice * 1;
         onecoinpricetoFixed2 = onecoinpricetoFixed2.toFixed(2)
